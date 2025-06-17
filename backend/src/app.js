@@ -20,15 +20,17 @@ app.use(express.urlencoded({limit:"40kb" ,extended: true}));
 
 
 const start = async ()=>{
+
     
+    server.listen(app.get("port") , ()=>{
+        console.log(`LISTENING ON PORT ${app.get("port")}`);
+    });
     
     const connectionDb =  await mongoose.connect(app.get("mongo_url"));
     // console.log(connectionDb);
     console.log(`MONGO Connected DB Host : ${connectionDb.connection.host}`);
 
-    server.listen(app.get("port") , ()=>{
-        console.log(`LISTENING ON PORT ${app.get("port")}`);
-    });
+    
    
 }
 

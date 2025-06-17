@@ -8,4 +8,9 @@ router.route('/login')
 
 router.route('/register')
 
-router.route('')
+router.route('/add_to_activity')
+
+
+route.route('/get_all_activity')
+
+export default router;
