@@ -2,11 +2,12 @@ import { User } from "../models/user.model.js";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import crypto from 'node:crypto';
+
 const login = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ message: "Please provide" });
+    return res.status(400).json({ message: "Please provide the input field's" });
   }
 
   
@@ -14,20 +15,30 @@ const login = async (req, res, next) => {
       
     const dbUser = await User.findOne({ username });
     if(!dbUser){
-        res.status(httpStatus.NOT_FOUND).json({message : "User doesn't exists"})
+      return  res.status(httpStatus.NOT_FOUND).json({message : "User doesn't exists"})
     }
-   if(bcrypt.compare(password  , dbUser.password)){
+
+    let isMatch = await bcrypt.compare(password  , dbUser.password);
+      if(isMatch){
         let token = crypto.randomBytes(20).toString('hex');
 
         dbUser.token = token;
+       
         await dbUser.save();
         return res.status(httpStatus.OK).json({token : token} );
-   }
+     }
+       return res.status(httpStatus.BAD_REQUEST).json({message : "Wrong password entered"});
+     
 
-  } catch (error) {}
+
+
+  } catch (error) {
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message : `Something went wrong ${error}`})
+  }
 };
 
 const register = async (req, res) => {
+  
   const { name, username, password } = req.body;
 
  
@@ -56,3 +67,6 @@ const register = async (req, res) => {
     res.json({ message: `Something went wrong ${error}` });
   }
 };
+
+
+export  {login , register};

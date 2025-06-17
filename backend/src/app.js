@@ -4,6 +4,8 @@ import {connectToSocket}  from './controllers/socketManager.js'
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import userRoutes from './routes/userRoutes.js'
+import bodyParser from 'body-parser'
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use(cors());
 app.use(express.json({limit : "40kb"}));
 app.use(express.urlencoded({limit:"40kb" ,extended: true}));
 
+
+app.use('/api/v1/users' , userRoutes);
 
 const start = async ()=>{
 
