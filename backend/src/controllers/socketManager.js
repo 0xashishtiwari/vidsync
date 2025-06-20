@@ -23,7 +23,7 @@ export const connectToSocket = (server) => {
       connections[path].push(socket.id);
       timeOnline[socket.id] = new Date();
 
-      for (let a = 0; a < connections[path].length; i++) {
+      for (let a = 0; a < connections[path].length; a++) {
         // notify all the user in the room
         io.to(connections[path][a]).emit(
           "user-joined",
