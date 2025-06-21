@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-
+import Button from '@mui/material/Button';
 const LandingPage = () => {
   return (
     <div className="landingPageContainer">
@@ -22,9 +22,9 @@ const LandingPage = () => {
           <h1><span style={{color : "#FF9839"}}>Connect</span> with your loved Ones </h1>
 
           <p>Cover a distance by vidsync</p>
-          <div role='button'>
-            <Link to={'/home'}> Get Started </Link>
-          </div>
+          <Button variant="contained" href="/auth">
+        Get Started
+      </Button>
         </div>
         <div >
           <img src="/mobile.png" alt="" />
