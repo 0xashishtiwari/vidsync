@@ -25,9 +25,9 @@ const login = async (req, res, next) => {
         dbUser.token = token;
        
         await dbUser.save();
-        return res.status(httpStatus.OK).json({token : token} );
+        return res.status(httpStatus.OK).json({message : "Login successfull", token : token} );
      }
-       return res.status(httpStatus.BAD_REQUEST).json({message : "Wrong password entered"});
+       return res.status(httpStatus.UNAUTHORIZED).json({message : "Wrong password entered"});
      
 
 
@@ -41,7 +41,9 @@ const register = async (req, res) => {
   
   const { name, username, password } = req.body;
 
- 
+  if (!name || !username || !password) {
+    return res.status(400).json({ message: "Please provide the input field's" });
+  }
 
   try {
     const existingUser = await User.findOne({ username });
