@@ -1,8 +1,12 @@
 import React from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 const LandingPage = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="landingPageContainer">
       <nav>
@@ -22,7 +26,7 @@ const LandingPage = () => {
           <h1><span style={{color : "#FF9839"}}>Connect</span> with your loved Ones </h1>
 
           <p>Cover a distance by vidsync</p>
-          <Button variant="contained" href="/auth">
+          <Button onClick={()=>{navigate("/auth")}} variant="contained"  >
         Get Started
       </Button>
         </div>
